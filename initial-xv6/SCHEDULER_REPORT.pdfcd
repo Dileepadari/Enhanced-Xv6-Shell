@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SCHEDULING</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="scheduling">Scheduling</h1>
+<p>The following Project was Executed in three Scheduling Policies:</p>
+<ol type="1">
+<li>Round-Robin (RR)</li>
+<li>First Come First-Served (FCFS)</li>
+<li>Multi-level Feedback Queue (MLFQ)</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">make</span> clean</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">make</span> qemu SCHEDULER=<span class="op">&lt;</span>Schedulertype<span class="op">&gt;</span></span></code></pre></div>
+<p>Here &lt; schedulertype &gt; can be DEFAULT for RR , FCFS for FCFS, MLFQ for MLFQ</p>
+<h2 id="round-robin">Round-Robin</h2>
+<p>In the round robin scheduling, each process gets a fixed time slice called as quantum. Once it is executed completely within its time slice, In this case it is 1 tick.</p>
+<h3 id="implementation">Implementation</h3>
+<h4 id="in-scheduler">In <code>Scheduler</code>:</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> (p = proc; p &lt; &amp;proc[NPROC]; p++)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>      acquire(&amp;p-&gt;lock);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>      <span class="cf">if</span> (p-&gt;state == RUNNABLE)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>      {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>        p-&gt;state = RUNNING;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>        c-&gt;proc = p;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>        swtch(&amp;c-&gt;context, &amp;p-&gt;context);</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>        c-&gt;proc = <span class="dv">0</span>;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>      }</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>      release(&amp;p-&gt;lock);</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    }</span></code></pre></div>
+<p>In usertrap() and kerneltrap(), <code>yield()</code> is used to interrupt the process.</p>
+<h2 id="output">Output</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="ex">Process</span> 5 finished</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="ex">Process</span> 7 finished</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="ex">Process</span> 9 finished</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="ex">Process</span> 8 finished</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="ex">Process</span> 6 finished</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="ex">Process</span> 0 finished</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="ex">Process</span> 1 finished</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="ex">Process</span> 2 finished</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="ex">Process</span> 3 finished</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="ex">Process</span> 4 finished</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="ex">Average</span> rtime 11,  wtime 146</span></code></pre></div>
+<h2 id="first-come-first-served">First Come First-Served</h2>
+<p>FCFS is a simple scheduling algorithm where processes are executed in the order they arrive. The Processes that come first will be executed first.</p>
+<h3 id="implementation-1">Implementation</h3>
+<h4 id="in-usertrap-and-kerneltrap">In <code>usertrap</code> and <code>kerneltrap</code>:</h4>
+<p>Yield is disabled inorder to handle preemption cause the process should run till completion without preemption.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>usertrap()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#ifndef FCFS</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  <span class="cf">if</span> (which_dev == <span class="dv">2</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    yield();</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>kerneltrap()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>ifndef FCFS</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>  <span class="cf">if</span> (which_dev == <span class="dv">2</span> &amp;&amp; myproc() != <span class="dv">0</span> &amp;&amp; myproc()-&gt;state == RUNNING)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    yield();</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
+<h3 id="in-proc.c">In proc.c</h3>
+<p>The schedule policy is determined by ifdef in the scheduler function</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#ifdef FCFS</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="cf">for</span> (;;)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    intr_on();</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="kw">struct</span> proc *pres_proc = <span class="dv">0</span>;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="cf">for</span> (p = proc; p &lt; &amp;proc[NPROC]; p++)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>    {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>      <span class="cf">if</span> (p-&gt;state == RUNNABLE &amp;&amp; (pres_proc == <span class="dv">0</span> || pres_proc-&gt;ctime &gt; p-&gt;ctime))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>      {</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>        pres_proc = p;</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>      }</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>    }</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>    <span class="cf">if</span> (pres_proc != <span class="dv">0</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>    {</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>      <span class="cf">if</span> (pres_proc-&gt;state == RUNNABLE)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>      {</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>        acquire(&amp;pres_proc-&gt;lock);</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>        pres_proc-&gt;state = RUNNING;</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>        c-&gt;proc = pres_proc;</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>        swtch(&amp;c-&gt;context, &amp;pres_proc-&gt;context);</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>        c-&gt;proc = <span class="dv">0</span>;</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>        release(&amp;pres_proc-&gt;lock);</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>      }</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>      release(&amp;p-&gt;lock);</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true"></a>    }</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true"></a>  }</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
+<p>Here the ctime is compared which is the arrival time and the minimum is taken and was run. Since there is no preemption (Yield), It will run till its end.</p>
+<h2 id="output-1">Output</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">Process</span> 5 finished</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">Process</span> 6 finished</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="ex">Process</span> 7 finished</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="ex">Process</span> 8 finished</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="ex">Process</span> 9 finished</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="ex">Process</span> 0 finished</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="ex">Process</span> 1 finished</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="ex">Process</span> 2 finished</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="ex">Process</span> 3 finished</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="ex">Process</span> 4 finished</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a><span class="ex">Average</span> rtime 11,  wtime 123</span></code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>To enable FCFS scheduling during the compilation of xv6, use the <code>FCFS</code> flag. For example:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">make</span> clean</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="fu">make</span> qemu SCHEDULER=FCFS</span></code></pre></div>
+<h2 id="multilevel-feedback-queue">Multilevel Feedback Queue</h2>
+<p>Multi-Level Feedback (MLFQ) is a sophisticated scheduling algorithm that employs multiple queues with varying priorities (0 has highst priority and decreases till 3) to manage processes efficiently. These queues has their own time slices to send the running process to next level and also the other processes in the same Queue runs in Round Robin.</p>
+<h2 id="graphs">Graphs</h2>
+<p><strong>For waittime of 10 ticks</strong></p>
+<figure>
+<img src="./initial-xv6/src/graphs/MLFQ_10_wait.png" alt="" /><figcaption>Waittime_10</figcaption>
+</figure>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="ex">Output</span>: Average rtime 11,  wtime 146</span></code></pre></div>
+<p><strong>For waittime of 20 ticks</strong></p>
+<figure>
+<img src="./initial-xv6/src/graphs/MLFQ_20_wait.png" alt="" /><figcaption>Waittime_20</figcaption>
+</figure>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="ex">Output</span>: Average rtime 11,  wtime 139</span></code></pre></div>
+<p><strong>For waittime of 30 ticks</strong></p>
+<figure>
+<img src="./initial-xv6/src/graphs/MLFQ_30_wait.png" alt="" /><figcaption>Waittime_30</figcaption>
+</figure>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">Output</span>: Average rtime 11,  wtime 143</span></code></pre></div>
+<p><strong>For waittime of 40 ticks</strong></p>
+<figure>
+<img src="./initial-xv6/src/graphs/MLFQ_40_wait.png" alt="" /><figcaption>Waittime_40</figcaption>
+</figure>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="ex">Output</span>: Average rtime 11,  wtime 139</span></code></pre></div>
+<h2 id="implementation-2">Implementation</h2>
+<h3 id="process-structure-modifications">1. Process Structure Modifications</h3>
+<p>Several fields have been added to the <code>struct proc</code> to support MLFQ scheduling:</p>
+<ul>
+<li><code>que_no</code>: Denotes the queue number where the process is placed.</li>
+<li><code>proc_no</code>: Represents the position of the process in its queue.</li>
+<li><code>que_on</code>: Indicates whether the process is in a queue or not.</li>
+<li><code>wait_time</code>: Tracks the waiting time of the process.</li>
+<li><code>stime</code>: Records the time the process has spent in the RUNNING state.</li>
+</ul>
+<h3 id="mlfq-queues">2. MLFQ Queues</h3>
+<p>Four MLFQ queues are implemented, each with a different maximum time constraint {1, 3, 9, 15}. Processes move between these queues based on their behavior.</p>
+<h3 id="initialization">3. Initialization</h3>
+<p>The <code>init_que</code> function initializes the MLFQ queues with specific maximum time constraints given and que_on and que_no with 0.</p>
+<h3 id="queue-operations">4. Queue Operations</h3>
+<ul>
+<li><code>mlfq_push</code>: Adds a process to a queue at back.</li>
+<li><code>mlfq_push_front</code>: Adds a process to the front of a queue.</li>
+<li><code>mlfq_pop</code>: Removes and returns a process from a queue.</li>
+<li><code>deque</code>: Removes the given process from a queue.</li>
+</ul>
+<h3 id="scheduling-logic">5. Scheduling Logic</h3>
+<p>In the <code>scheduler</code> function, processes are placed into queues based on their state (if RUNNING) and que-on status is updated to 1. Processes are moved between queues to ensure they meet their wait time constraints. Here the first process in the least priority is selected and popped, if it is runnable, insert it again in the front of queue to run it again after returning back from trap, when the running time goes greater than assigned time slice, the que_no is increased to push to next level by popping it. When the waittime of a process is morethan given waittime limit, the que_no is decreased to get more priority.</p>
+<p>Process:</p>
+<p>In sechuduler function</p>
+<ol type="a">
+<li>The Runnable processes in the <code>proc</code> array is pushed at back of que_no (initialised with 0) by checking if it is already in queue. The que_on flag is set to 1 to indicate its presence in Queue.</li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> proc *p = <span class="dv">0</span>;</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="cf">for</span> (p = proc; p &lt; &amp;proc[NPROC]; p++)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>      <span class="cf">if</span> (p-&gt;state == SLEEPING || p-&gt;state == UNUSED)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>      {</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>        <span class="cf">continue</span>;</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>      }</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>      <span class="cf">if</span> (p-&gt;state == RUNNABLE &amp;&amp; p-&gt;que_on == <span class="dv">0</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>      {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>        <span class="dt">int</span> que_no = p-&gt;que_no;</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a>        mlfq_push(p, que_no);</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>        p-&gt;que_on = <span class="dv">1</span>;</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>      }</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>    }</span></code></pre></div>
+<ol start="2" type="a">
+<li>Selecting the first Runnable process in the first non empty queue by popping out queues continuously until a Runnable process was found. When found Push it again in the front of the Queue.</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">struct</span> proc *pres_proc = <span class="dv">0</span>;</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">4</span>; i++)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>    {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>      <span class="cf">if</span> (pres_proc != <span class="dv">0</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>      {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>        <span class="cf">break</span>;</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>      }</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>      <span class="cf">while</span> (mlf_Que[i].tail &gt; <span class="dv">0</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>      {</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>        pres_proc = mlfq_pop(i);</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>        pres_proc-&gt;que_on = <span class="dv">0</span>;</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>        <span class="cf">if</span> (pres_proc-&gt;state == RUNNABLE)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>        {</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a>          mlfq_push_front(pres_proc, pres_proc-&gt;que_no);</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a>          <span class="cf">break</span>;</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a>        }</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a>      }</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a>    }</span></code></pre></div>
+<ol start="3" type="a">
+<li>Running the found Runnable Process by context switching and CPU running process to present found process.</li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="cf">if</span> (pres_proc != <span class="dv">0</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>    {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>      <span class="cf">if</span> (pres_proc-&gt;state == RUNNABLE)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>      {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>        acquire(&amp;pres_proc-&gt;lock);</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>        pres_proc-&gt;state = RUNNING;</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>        c-&gt;proc = pres_proc;</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>        swtch(&amp;c-&gt;context, &amp;pres_proc-&gt;context);</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>        c-&gt;proc = <span class="dv">0</span>;</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>        release(&amp;pres_proc-&gt;lock);</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>      }</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a>    }</span></code></pre></div>
+<p>In usertrap function</p>
+<ol start="4" type="a">
+<li>Check if the Running time of the Process of present Running process is more than time slice of present Queue. If it is greater pop the queue and increase the queue level (decrease priority) of the process such that it can be added to next level queue when it goes to scheduler again. Again reseting the runtime (stime) and also wait time starts from now. The que_no is left 3 it is in queue 3. As it always add it to last of Queue if que_on is 0.</li>
+</ol>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>    <span class="cf">if</span> (p-&gt;stime &gt; mlf_Que[p-&gt;que_no].max_ticks)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>    {</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>      <span class="cf">if</span> (mlf_Que[p-&gt;que_no].tail &gt; <span class="dv">0</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>      {</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>        mlfq_pop(p-&gt;que_no);</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>        p-&gt;que_on = <span class="dv">0</span>;</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>      }</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>      <span class="cf">if</span> (p-&gt;que_no &lt; <span class="dv">3</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>      {</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>        p-&gt;que_no++;</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>      }</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>      p-&gt;stime = <span class="dv">0</span>;</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>      p-&gt;wait_time = <span class="dv">0</span>;</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>    }</span></code></pre></div>
+<ol start="5" type="a">
+<li>Inorder to prevent ageing, check if the wait_time of the processes which are RUNNABLE and increase their priority (decraese queue level) if it more than some predefined threshhold (reset point) inorder to boost it to high priority by removing from present queue and again going to scheduler function.</li>
+</ol>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="kw">struct</span> proc *pres_proc = proc; pres_proc &lt; &amp;proc[NPROC]; pres_proc++)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>  {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>    <span class="cf">if</span> (pres_proc != <span class="dv">0</span> &amp;&amp; pres_proc-&gt;state == RUNNABLE &amp;&amp; pres_proc-&gt;que_on == <span class="dv">1</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>      <span class="cf">if</span> (pres_proc-&gt;wait_time &gt;= <span class="dv">30</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>      {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>        pres_proc-&gt;que_on = <span class="dv">0</span>;</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>        deque(pres_proc-&gt;que_no, pres_proc);</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>        <span class="cf">if</span> (pres_proc-&gt;que_no &gt; <span class="dv">0</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>        {</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>          pres_proc-&gt;que_no--;</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>        }</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>        pres_proc-&gt;wait_time = <span class="dv">0</span>;</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>      }</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>    }</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>  }</span></code></pre></div>
+<p>As the processes at least priority runs first, the processes run in Round robin as the next element of present running process will be first process if present running process goes to next queue or added at last.</p>
+<h3 id="yield-behavior">6. Yield Behavior</h3>
+<p>The <code>yield</code> function ensures that processes go to RUNNABLE state from RUNNING. if they are in the SLEEPING state (got from premption as to reserve parent process until child completes), it is left in sleep state, preventing preemption errors.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="dt">void</span> yield(<span class="dt">void</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>{</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>  <span class="kw">struct</span> proc *p = myproc();</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>  acquire(&amp;p-&gt;lock);</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>  p-&gt;state = RUNNABLE;</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="pp">#ifdef MLFQ</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>  <span class="cf">if</span> (p-&gt;state != SLEEPING)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>  {</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a><span class="pp">#endif</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>    p-&gt;state = RUNNABLE;</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a><span class="pp">#ifdef MLFQ</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>  }</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a><span class="pp">#endif</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>  sched();</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>  release(&amp;p-&gt;lock);</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>}</span></code></pre></div>
+<h3 id="updating-process-statistics">7. Updating Process Statistics</h3>
+<p>In the <code>updatetime</code> function, process statistics such as <code>stime</code> and <code>wait_time</code> are updated to track the time spent in Running and Waiting Period.</p>
+<h2 id="output-for-30-waittime">Output for 30 Waittime</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="ex">Process</span> 8 finished</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="ex">Process</span> 5 finished</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="ex">Process</span> 9 finished</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a><span class="ex">Process</span> 6 finished</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a><span class="ex">Process</span> 7 finished</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a><span class="ex">Process</span> 0 finished</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a><span class="ex">Process</span> 1 finished</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a><span class="ex">Process</span> 2 finished</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a><span class="ex">Process</span> 3 finished</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a><span class="ex">Process</span> 4 finished</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a><span class="ex">Average</span> rtime 12,  wtime 145</span></code></pre></div>
+<h2 id="usage-1">Usage</h2>
+<p>To enable MLFQ scheduling during the compilation, use the <code>MLFQ</code> flag. For example:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="fu">make</span> clean</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="fu">make</span> qemu CPUS=1 SCHEDULER=MLFQ</span></code></pre></div>
+<h1 id="overall-comparision-among-the-scheduler-policies">Overall Comparision among the Scheduler Policies:</h1>
+<ol type="1">
+<li>FCFS is better among all for the average turn-around time.</li>
+<li>Round Robin is better for average response-time.</li>
+<li>MLFQ is better in the case of different time slots and waiting processes.</li>
+</ol>
+</body>
+</html>

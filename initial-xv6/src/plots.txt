@@ -1,0 +1,738 @@
+Script started on 2023-10-09 21:20:47+05:30 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="80" LINES="24"]
+[?2004hcherry@pop-os:~/E2_1/OSN/mini_projects/mini-project-2-Dileepadari/initial-xv6/src$ exitmake cleanqemu SCHEDULER=MLFQ GRAPH=GRAPH
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry.o kernel/entry.S
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/start.o kernel/start.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/console.o kernel/console.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/uart.o kernel/uart.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/main.o kernel/main.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/vm.o kernel/vm.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/proc.o kernel/proc.c
+riscv64-unknown-elf-gcc    -c -o kernel/swtch.o kernel/swtch.S
+riscv64-unknown-elf-gcc    -c -o kernel/trampoline.o kernel/trampoline.S
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/trap.o kernel/trap.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/syscall.o kernel/syscall.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/sysproc.o kernel/sysproc.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/bio.o kernel/bio.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/fs.o kernel/fs.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/log.o kernel/log.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/sleeplock.o kernel/sleeplock.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/file.o kernel/file.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/pipe.o kernel/pipe.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/exec.o kernel/exec.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/sysfile.o kernel/sysfile.c
+riscv64-unknown-elf-gcc    -c -o kernel/kernelvec.o kernel/kernelvec.S
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/plic.o kernel/plic.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o kernel/virtio_disk.o kernel/virtio_disk.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie -march=rv64g -nostdinc -I. -Ikernel -c user/initcode.S -o user/initcode.o
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e start -Ttext 0 -o user/initcode.out user/initcode.o
+riscv64-unknown-elf-ld: warning: user/initcode.out has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objcopy -S -O binary user/initcode.out user/initcode
+riscv64-unknown-elf-objdump -S user/initcode.o > user/initcode.asm
+riscv64-unknown-elf-ld -z max-page-size=4096 -T kernel/kernel.ld -o kernel/kernel kernel/entry.o kernel/start.o kernel/console.o kernel/printf.o kernel/uart.o kernel/kalloc.o kernel/spinlock.o kernel/string.o kernel/main.o kernel/vm.o kernel/proc.o kernel/swtch.o kernel/trampoline.o kernel/trap.o kernel/syscall.o kernel/sysproc.o kernel/bio.o kernel/fs.o kernel/log.o kernel/sleeplock.o kernel/file.o kernel/pipe.o kernel/exec.o kernel/sysfile.o kernel/kernelvec.o kernel/plic.o kernel/virtio_disk.o 
+riscv64-unknown-elf-ld: warning: kernel/kernel has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S kernel/kernel > kernel/kernel.asm
+riscv64-unknown-elf-objdump -t kernel/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kernel/kernel.sym
+gcc -Werror -Wall -I. -o mkfs/mkfs mkfs/mkfs.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/ulib.o user/ulib.c
+perl user/usys.pl > user/usys.S
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie -c -o user/usys.o user/usys.S
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/printf.o user/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/umalloc.o user/umalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/cat.o user/cat.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_cat user/cat.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_cat > user/cat.asm
+riscv64-unknown-elf-objdump -t user/_cat | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/cat.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/echo.o user/echo.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_echo user/echo.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_echo > user/echo.asm
+riscv64-unknown-elf-objdump -t user/_echo | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/echo.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/forktest.o user/forktest.c
+# forktest has less library code linked in - needs to be small
+# in order to be able to max out the proc table.
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o user/_forktest user/forktest.o user/ulib.o user/usys.o
+riscv64-unknown-elf-ld: warning: user/_forktest has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S user/_forktest > user/forktest.asm
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/grep.o user/grep.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_grep user/grep.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_grep > user/grep.asm
+riscv64-unknown-elf-objdump -t user/_grep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/grep.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/init.o user/init.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_init user/init.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_init > user/init.asm
+riscv64-unknown-elf-objdump -t user/_init | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/init.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/kill.o user/kill.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_kill user/kill.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_kill > user/kill.asm
+riscv64-unknown-elf-objdump -t user/_kill | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/kill.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/ln.o user/ln.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_ln user/ln.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_ln > user/ln.asm
+riscv64-unknown-elf-objdump -t user/_ln | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/ln.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/ls.o user/ls.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_ls user/ls.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_ls > user/ls.asm
+riscv64-unknown-elf-objdump -t user/_ls | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/ls.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/mkdir.o user/mkdir.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_mkdir user/mkdir.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_mkdir > user/mkdir.asm
+riscv64-unknown-elf-objdump -t user/_mkdir | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/mkdir.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/rm.o user/rm.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_rm user/rm.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_rm > user/rm.asm
+riscv64-unknown-elf-objdump -t user/_rm | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/rm.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/sh.o user/sh.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_sh user/sh.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_sh > user/sh.asm
+riscv64-unknown-elf-objdump -t user/_sh | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/sh.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/stressfs.o user/stressfs.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_stressfs user/stressfs.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_stressfs > user/stressfs.asm
+riscv64-unknown-elf-objdump -t user/_stressfs | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/stressfs.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/usertests.o user/usertests.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_usertests user/usertests.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_usertests > user/usertests.asm
+riscv64-unknown-elf-objdump -t user/_usertests | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/usertests.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/grind.o user/grind.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_grind user/grind.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_grind > user/grind.asm
+riscv64-unknown-elf-objdump -t user/_grind | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/grind.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/wc.o user/wc.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_wc user/wc.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_wc > user/wc.asm
+riscv64-unknown-elf-objdump -t user/_wc | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/wc.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/zombie.o user/zombie.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_zombie user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_zombie > user/zombie.asm
+riscv64-unknown-elf-objdump -t user/_zombie | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/zombie.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/schedulertest.o user/schedulertest.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_schedulertest user/schedulertest.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_schedulertest > user/schedulertest.asm
+riscv64-unknown-elf-objdump -t user/_schedulertest | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/schedulertest.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/test_1.o user/test_1.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_test_1 user/test_1.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_test_1 > user/test_1.asm
+riscv64-unknown-elf-objdump -t user/_test_1 | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/test_1.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/test_2.o user/test_2.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_test_2 user/test_2.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_test_2 > user/test_2.asm
+riscv64-unknown-elf-objdump -t user/_test_2 | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/test_2.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/getreadcount.o user/getreadcount.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_getreadcount user/getreadcount.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_getreadcount > user/getreadcount.asm
+riscv64-unknown-elf-objdump -t user/_getreadcount | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/getreadcount.sym
+riscv64-unknown-elf-gcc -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2 -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D MLFQ -D GRAPH -fno-pie -no-pie   -c -o user/alarmtest.o user/alarmtest.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -T user/user.ld -o user/_alarmtest user/alarmtest.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+riscv64-unknown-elf-objdump -S user/_alarmtest > user/alarmtest.asm
+riscv64-unknown-elf-objdump -t user/_alarmtest | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > user/alarmtest.sym
+mkfs/mkfs fs.img README user/_cat user/_echo user/_forktest user/_grep user/_init user/_kill user/_ln user/_ls user/_mkdir user/_rm user/_sh user/_stressfs user/_usertests user/_grind user/_wc user/_zombie user/_schedulertest user/_test_1 user/_test_2 user/_getreadcount user/_alarmtest 
+nmeta 46 (boot, super, log blocks 30 inode blocks 13, bitmap blocks 1) blocks 1954 total 2000
+balloc: first 923 blocks have been allocated
+balloc: write bitmap block at sector 45
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 1 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+GRAPH 1 1 0 3
+GRAPH 1 2 0 4
+init: starting sh
+$ schedulertest
+GRAPH 9 58 0 4
+GRAPH 10 58 0 3
+GRAPH 11 58 0 3
+GRAPH 12 58 0 3
+GRAPH 13 58 0 3
+GRAPH 4 59 0 3
+GRAPH 5 59 0 3
+GRAPH 6 59 0 3
+GRAPH 7 59 0 3
+GRAPH 8 59 0 3
+GRAPH 9 59 1 3
+GRAPH 10 59 0 4
+GRAPH 11 59 0 3
+GRAPH 12 59 0 3
+GRAPH 13 59 0 3
+GRAPH 4 60 0 3
+GRAPH 5 60 0 3
+GRAPH 6 60 0 3
+GRAPH 7 60 0 3
+GRAPH 8 60 0 3
+GRAPH 9 60 1 3
+GRAPH 10 60 1 3
+GRAPH 11 60 0 4
+GRAPH 12 60 0 3
+GRAPH 13 60 0 3
+GRAPH 4 61 0 3
+GRAPH 5 61 0 3
+GRAPH 6 61 0 3
+GRAPH 7 61 0 3
+GRAPH 8 61 0 3
+GRAPH 9 61 1 3
+GRAPH 10 61 1 3
+GRAPH 11 61 1 3
+GRAPH 12 61 0 4
+GRAPH 13 61 0 3
+GRAPH 4 62 0 3
+GRAPH 5 62 0 3
+GRAPH 6 62 0 3
+GRAPH 7 62 0 3
+GRAPH 8 62 0 3
+GRAPH 9 62 1 3
+GRAPH 10 62 1 3
+GRAPH 11 62 1 3
+GRAPH 12 62 1 3
+GRAPH 13 62 0 4
+GRAPH 9 63 1 4
+GRAPH 10 63 1 3
+GRAPH 11 63 1 3
+GRAPH 12 63 1 3
+GRAPH 13 63 1 3
+GRAPH 9 64 1 4
+GRAPH 10 64 1 3
+GRAPH 11 64 1 3
+GRAPH 12 64 1 3
+GRAPH 13 64 1 3
+GRAPH 9 65 1 4
+GRAPH 10 65 1 3
+GRAPH 11 65 1 3
+GRAPH 12 65 1 3
+GRAPH 13 65 1 3
+GRAPH 9 66 2 3
+GRAPH 10 66 1 4
+GRAPH 11 66 1 3
+GRAPH 12 66 1 3
+GRAPH 13 66 1 3
+GRAPH 9 67 2 3
+GRAPH 10 67 1 4
+GRAPH 11 67 1 3
+GRAPH 12 67 1 3
+GRAPH 13 67 1 3
+GRAPH 9 68 2 3
+GRAPH 10 68 1 4
+GRAPH 11 68 1 3
+GRAPH 12 68 1 3
+GRAPH 13 68 1 3
+GRAPH 9 69 2 3
+GRAPH 10 69 2 3
+GRAPH 11 69 1 4
+GRAPH 12 69 1 3
+GRAPH 13 69 1 3
+GRAPH 9 70 2 3
+GRAPH 10 70 2 3
+GRAPH 11 70 1 4
+GRAPH 12 70 1 3
+GRAPH 13 70 1 3
+GRAPH 9 71 2 3
+GRAPH 10 71 2 3
+GRAPH 11 71 1 4
+GRAPH 12 71 1 3
+GRAPH 13 71 1 3
+GRAPH 9 72 2 3
+GRAPH 10 72 2 3
+GRAPH 11 72 2 3
+GRAPH 12 72 1 4
+GRAPH 13 72 1 3
+GRAPH 9 73 2 3
+GRAPH 10 73 2 3
+GRAPH 11 73 2 3
+GRAPH 12 73 1 4
+GRAPH 13 73 1 3
+GRAPH 9 74 2 3
+GRAPH 10 74 2 3
+GRAPH 11 74 2 3
+GRAPH 12 74 1 4
+GRAPH 13 74 1 3
+GRAPH 9 75 2 3
+GRAPH 10 75 2 3
+GRAPH 11 75 2 3
+GRAPH 12 75 2 3
+GRAPH 13 75 1 4
+GRAPH 9 76 2 3
+GRAPH 10 76 2 3
+GRAPH 11 76 2 3
+GRAPH 12 76 2 3
+GRAPH 13 76 1 4
+GRAPH 9 77 2 3
+GRAPH 10 77 2 3
+GRAPH 11 77 2 3
+GRAPH 12 77 2 3
+GRAPH 13 77 1 4
+GRAPH 9 78 2 4
+GRAPH 10 78 2 3
+GRAPH 11 78 2 3
+GRAPH 12 78 2 3
+GRAPH 13 78 2 3
+GRAPH 9 79 2 4
+GRAPH 10 79 2 3
+GRAPH 11 79 2 3
+GRAPH 12 79 2 3
+GRAPH 13 79 2 3
+GRAPH 9 80 2 4
+GRAPH 10 80 2 3
+GRAPH 11 80 2 3
+GRAPH 12 80 2 3
+GRAPH 13 80 2 3
+GRAPH 9 81 2 4
+GRAPH 10 81 2 3
+GRAPH 11 81 2 3
+GRAPH 12 81 2 3
+GRAPH 13 81 2 3
+GRAPH 9 82 2 4
+GRAPH 10 82 2 3
+GRAPH 11 82 2 3
+GRAPH 12 82 2 3
+GRAPH 13 82 2 3
+GRAPH 9 83 2 4
+GRAPH 10 83 2 3
+GRAPH 11 83 2 3
+GRAPH 12 83 2 3
+GRAPH 13 83 2 3
+GRAPH 9 84 2 4
+GRAPH 10 84 2 3
+GRAPH 11 84 2 3
+GRAPH 12 84 2 3
+GRAPH 13 84 2 3
+GRAPH 9 85 2 4
+GRAPH 10 85 2 3
+GRAPH 11 85 2 3
+GRAPH 12 85 2 3
+GRAPH 13 85 2 3
+GRAPH 9 86 2 4
+GRAPH 10 86 2 3
+GRAPH 11 86 2 3
+GRAPH 12 86 2 3
+GRAPH 13 86 2 3
+GRAPH 9 87 3 3
+GRAPH 10 87 2 4
+GRAPH 11 87 2 3
+GRAPH 12 87 2 3
+GRAPH 13 87 2 3
+GRAPH 9 88 3 3
+GRAPH 10 88 2 4
+GRAPH 11 88 2 3
+GRAPH 12 88 2 3
+GRAPH 13 88 2 3
+GRAPH 9 89 3 3
+GRAPH 10 89 2 4
+GRAPH 11 89 2 3
+GRAPH 12 89 2 3
+GRAPH 13 89 2 3
+GRAPH 9 90 3 3
+GRAPH 10 90 2 4
+GRAPH 11 90 2 3
+GRAPH 12 90 2 3
+GRAPH 13 90 2 3
+GRAPH 9 91 3 3
+GRAPH 10 91 2 4
+GRAPH 11 91 2 3
+GRAPH 12 91 2 3
+GRAPH 13 91 2 3
+GRAPH 9 92 3 3
+GRAPH 10 92 2 4
+GRAPH 11 92 2 3
+GRAPH 12 92 2 3
+GRAPH 13 92 2 3
+GRAPH 9 93 3 3
+GRAPH 10 93 2 4
+GRAPH 11 93 2 3
+GRAPH 12 93 2 3
+GRAPH 13 93 2 3
+GRAPH 9 94 3 3
+GRAPH 10 94 2 4
+GRAPH 11 94 2 3
+GRAPH 12 94 2 3
+GRAPH 13 94 2 3
+GRAPH 9 95 3 3
+GRAPH 10 95 2 4
+GRAPH 11 95 2 3
+GRAPH 12 95 2 3
+GRAPH 13 95 2 3
+GRAPH 9 96 3 3
+GRAPH 10 96 3 3
+GRAPH 11 96 2 4
+GRAPH 12 96 2 3
+GRAPH 13 96 2 3
+GRAPH 9 97 3 3
+GRAPH 10 97 3 3
+GRAPH 11 97 2 4
+GRAPH 12 97 2 3
+GRAPH 13 97 2 3
+GRAPH 9 98 3 3
+GRAPH 10 98 3 3
+GRAPH 11 98 2 4
+GRAPH 12 98 2 3
+GRAPH 13 98 2 3
+GRAPH 9 99 3 3
+GRAPH 10 99 3 3
+GRAPH 11 99 2 4
+GRAPH 12 99 2 3
+GRAPH 13 99 2 3
+GRAPH 9 100 3 3
+GRAPH 10 100 3 3
+GRAPH 11 100 2 4
+GRAPH 12 100 2 3
+GRAPH 13 100 2 3
+GRAPH 9 101 3 3
+GRAPH 10 101 3 3
+GRAPH 11 101 2 4
+GRAPH 12 101 2 3
+GRAPH 13 101 2 3
+GRAPH 9 102 3 3
+GRAPH 10 102 3 3
+GRAPH 11 102 2 4
+GRAPH 12 102 2 3
+GRAPH 13 102 2 3
+GRAPH 9 103 3 3
+GRAPH 10 103 3 3
+GRAPH 11 103 2 4
+GRAPH 12 103 2 3
+GRAPH 13 103 2 3
+GRAPH 9 104 3 3
+GRAPH 10 104 3 3
+GRAPH 11 104 2 4
+GRAPH 12 104 2 3
+GRAPH 13 104 2 3
+GRAPH 9 105 3 3
+GRAPH 10 105 3 3
+GRAPH 11 105 3 3
+GRAPH 12 105 1 4
+GRAPH 13 105 2 3
+GRAPH 9 106 3 3
+GRAPH 10 106 3 3
+GRAPH 11 106 3 3
+GRAPH 12 106 1 4
+GRAPH 13 106 2 3
+GRAPH 9 107 3 3
+GRAPH 10 107 3 3
+GRAPH 11 107 3 3
+GRAPH 12 107 1 4
+GRAPH 13 107 2 3
+GRAPH 9 108 3 3
+GRAPH 10 108 3 3
+GRAPH 11 108 3 3
+GRAPH 12 108 2 3
+GRAPH 13 108 1 4
+GRAPH 9 109 3 3
+GRAPH 10 109 3 3
+GRAPH 11 109 3 3
+GRAPH 12 109 2 3
+GRAPH 13 109 1 4
+GRAPH 9 110 3 3
+GRAPH 10 110 3 3
+GRAPH 11 110 3 3
+GRAPH 12 110 2 3
+GRAPH 13 110 1 4
+GRAPH 9 111 3 3
+GRAPH 10 111 3 3
+GRAPH 11 111 3 3
+GRAPH 12 111 2 4
+GRAPH 13 111 2 3
+GRAPH 9 112 3 3
+GRAPH 10 112 3 3
+GRAPH 11 112 3 3
+GRAPH 12 112 2 4
+GRAPH 13 112 2 3
+GRAPH 9 113 3 3
+GRAPH 10 113 3 3
+GRAPH 11 113 3 3
+GRAPH 12 113 2 4
+GRAPH 13 113 2 3
+GRAPH 9 114 3 3
+GRAPH 10 114 3 3
+GRAPH 11 114 3 3
+GRAPH 12 114 2 4
+GRAPH 13 114 2 3
+GRAPH 9 115 3 3
+GRAPH 10 115 3 3
+GRAPH 11 115 3 3
+GRAPH 12 115 2 4
+GRAPH 13 115 2 3
+GRAPH 9 116 3 3
+GRAPH 10 116 3 3
+GRAPH 11 116 3 3
+GRAPH 12 116 2 4
+GRAPH 13 116 2 3
+GRAPH 9 117 2 3
+GRAPH 10 117 3 3
+GRAPH 11 117 3 3
+GRAPH 12 117 2 4
+GRAPH 13 117 2 3
+GRAPH 9 118 2 3
+GRAPH 10 118 3 3
+GRAPH 11 118 3 3
+GRAPH 12 118 2 4
+GRAPH 13 118 2 3
+GRAPH 9 119 2 3
+GRAPH 10 119 3 3
+GRAPH 11 119 3 3
+GRAPH 12 119 2 4
+GRAPH 13 119 2 3
+GRAPH 9 120 2 3
+GRAPH 10 120 3 3
+GRAPH 11 120 3 3
+GRAPH 12 120 3 3
+GRAPH 13 120 2 4
+GRAPH 9 121 2 3
+GRAPH 10 121 3 3
+GRAPH 11 121 3 3
+GRAPH 12 121 3 3
+GRAPH 13 121 2 4
+GRAPH 9 122 2 3
+GRAPH 10 122 3 3
+GRAPH 11 122 3 3
+GRAPH 12 122 3 3
+GRAPH 13 122 2 4
+GRAPH 9 123 2 3
+GRAPH 10 123 3 3
+GRAPH 11 123 3 3
+GRAPH 12 123 3 3
+GRAPH 13 123 2 4
+GRAPH 9 124 2 3
+GRAPH 10 124 3 3
+GRAPH 11 124 3 3
+GRAPH 12 124 3 3
+GRAPH 13 124 2 4
+GRAPH 9 125 2 3
+GRAPH 10 125 3 3
+GRAPH 11 125 3 3
+GRAPH 12 125 3 3
+GRAPH 13 125 2 4
+GRAPH 9 126 2 3
+GRAPH 10 126 2 3
+GRAPH 11 126 3 3
+GRAPH 12 126 3 3
+GRAPH 13 126 2 4
+GRAPH 9 127 2 3
+GRAPH 10 127 2 3
+GRAPH 11 127 3 3
+GRAPH 12 127 3 3
+GRAPH 13 127 2 4
+GRAPH 9 128 2 3
+GRAPH 10 128 2 3
+GRAPH 11 128 3 3
+GRAPH 12 128 3 3
+GRAPH 13 128 2 4
+GRAPH 9 129 2 3
+GRAPH 10 129 2 3
+GRAPH 11 129 3 3
+GRAPH 12 129 3 4
+GRAPH 13 129 3 3
+GRAPH 9 130 2 3
+GRAPH 10 130 2 3
+GRAPH 11 130 3 3
+GRAPH 12 130 3 3
+GRAPH 13 130 3 4
+GRAPH 9 131 2 4
+GRAPH 10 131 2 3
+GRAPH 11 131 3 3
+GRAPH 12 131 3 3
+GRAPH 13 131 3 3
+GRAPH 9 132 2 4
+GRAPH 10 132 2 3
+GRAPH 11 132 3 3
+GRAPH 12 132 3 3
+GRAPH 13 132 3 3
+GRAPH 9 133 2 4
+GRAPH 10 133 2 3
+GRAPH 11 133 3 3
+GRAPH 12 133 3 3
+GRAPH 13 133 3 3
+GRAPH 9 134 2 4
+GRAPH 10 134 2 3
+GRAPH 11 134 3 3
+GRAPH 12 134 3 3
+GRAPH 13 134 3 3
+GRAPH 9 135 2 4
+GRAPH 10 135 2 3
+GRAPH 11 135 2 3
+GRAPH 12 135 3 3
+GRAPH 13 135 3 3
+GRAPH 9 136 2 4
+GRAPH 10 136 2 3
+GRAPH 11 136 2 3
+GRAPH 12 136 3 3
+GRAPH 13 136 3 3
+GRAPH 9 137 2 4
+GRAPH 10 137 2 3
+GRAPH 11 137 2 3
+GRAPH 12 137 3 3
+GRAPH 13 137 3 3
+GRAPH 9 138 2 4
+GRAPH 10 138 2 3
+GRAPH 11 138 2 3
+GRAPH 12 138 3 3
+GRAPH 13 138 3 3
+GRAPH 9 139 2 4
+GRAPH 10 139 2 3
+GRAPH 11 139 2 3
+GRAPH 12 139 3 3
+GRAPH 13 139 3 3
+GRAPH 9 140 3 3
+GRAPH 10 140 2 4
+GRAPH 11 140 2 3
+GRAPH 12 140 3 3
+GRAPH 13 140 3 3
+GRAPH 9 141 3 3
+GRAPH 10 141 2 4
+GRAPH 11 141 2 3
+GRAPH 12 141 3 3
+GRAPH 13 141 3 3
+GRAPH 9 142 3 3
+GRAPH 10 142 2 4
+GRAPH 11 142 2 3
+GRAPH 12 142 3 3
+GRAPH 13 142 3 3
+GRAPH 9 143 3 3
+GRAPH 10 143 2 4
+GRAPH 11 143 2 3
+GRAPH 12 143 3 3
+GRAPH 13 143 3 3
+GRAPH 9 144 3 3
+GRAPH 10 144 2 4
+GRAPH 11 144 2 3
+GRAPH 12 144 3 3
+GRAPH 13 144 3 3
+GRAPH 9 145 3 3
+GRAPH 10 145 2 4
+GRAPH 11 145 2 3
+GRAPH 12 145 3 3
+GRAPH 13 145 3 3
+GRAPH 9 146 3 3
+GRAPH 10 146 2 4
+GRAPH 11 146 2 3
+GRAPH 12 146 3 3
+GRAPH 13 146 3 3
+GRAPH 9 147 3 3
+GRAPH 10 147 2 4
+GRAPH 11 147 2 3
+GRAPH 12 147 3 3
+GRAPH 13 147 3 3
+GRAPH 9 148 3 3
+GRAPH 10 148 2 4
+GRAPH 11 148 2 3
+GRAPH 12 148 3 3
+GRAPH 13 148 3 3
+GRAPH 9 149 3 3
+GRAPH 10 149 3 3
+GRAPH 11 149 2 4
+GRAPH 12 149 3 3
+GRAPH 13 149 3 3
+GRAPH 9 150 3 3
+GRAPH 10 150 3 3
+GRAPH 11 150 2 4
+GRAPH 12 150 3 3
+GRAPH 13 150 3 3
+GRAPH 9 151 3 3
+GRAPH 10 151 3 3
+GRAPH 11 151 2 4
+GRAPH 12 151 2 3
+GRAPH 13 151 3 3
+GRAPH 9 152 3 3
+GRAPH 10 152 3 3
+GRAPH 11 152 2 4
+GRAPH 12 152 2 3
+GRAPH 13 152 3 3
+GRAPH 9 153 3 3
+GRAPH 10 153 3 3
+GRAPH 11 153 2 4
+GRAPH 12 153 2 3
+GRAPH 13 153 3 3
+GRAPH 9 154 3 3
+GRAPH 10 154 3 3
+GRAPH 11 154 2 4
+GRAPH 12 154 2 3
+GRAPH 13 154 3 3
+GRAPH 9 155 3 3
+GRAPH 10 155 3 3
+GRAPH 11 155 2 4
+GRAPH 12 155 2 3
+GRAPH 13 155 3 3
+GRAPH 9 156 3 3
+GRAPH 10 156 3 3
+GRAPH 11 156 2 4
+GRAPH 12 156 2 3
+GRAPH 13 156 3 3
+GRAPH 9 157 3 3
+GRAPH 10 157 3 3
+GRAPH 11 157 2 4
+GRAPH 12 157 2 3
+GRAPH 13 157 3 3
+GRAPH 9 158 3 3
+GRAPH 10 158 3 3
+GRAPH 11 158 3 3
+GRAPH 12 158 2 4
+GRAPH 13 158 3 3
+GRAPH 9 159 3 3
+GRAPH 10 159 3 3
+GRAPH 11 159 3 3
+GRAPH 12 159 2 4
+GRAPH 13 159 3 3
+GRAPH 9 160 3 3
+GRAPH 10 160 3 3
+GRAPH 11 160 3 3
+GRAPH 12 160 2 4
+GRAPH 13 160 2 3
+GRAPH 9 161 3 3
+GRAPH 10 161 3 3
+GRAPH 11 161 3 3
+GRAPH 12 161 2 4
+GRAPH 13 161 2 3
+GRAPH 9 162 3 3
+GRAPH 10 162 3 3
+GRAPH 11 162 3 3
+GRAPH 12 162 2 4
+GRAPH 13 162 2 3
+GRAPH 9 163 3 3
+GRAPH 10 163 3 3
+GRAPH 11 163 3 3
+GRAPH 12 163 2 4
+GRAPH 13 163 2 3
+Process 8 finished
+GRAPH 9 164 3 3
+GRAPH 10 164 3 3
+GRAPH 11 164 3 3
+GRAPH 13 164 2 4
+GRAPH 9 165 3 3
+GRAPH 10 165 3 3
+GRAPH 11 165 3 3
+GRAPH 13 165 2 4
+GRAPH 9 166 3 3
+GRAPH 10 166 3 3
+GRAPH 11 166 3 3
+GRAPH 13 166 2 4
+GRAPH 9 167 3 3
+GRAPH 10 167 3 3
+GRAPH 11 167 3 3
+GRAPH 13 167 2 4
+GRAPH 9 168 3 3
+GRAPH 10 168 3 3
+GRAPH 11 168 3 3
+GRAPH 13 168 2 4
+GRAPH 9 169 3 3
+GRAPH 10 169 3 3
+GRAPH 11 169 3 3
+GRAPH 13 169 2 4
+Process 9 finished
+GRAPH 9 170 2 4
+GRAPH 10 170 3 3
+GRAPH 11 170 3 3
+GRAPH 9 171 2 4
+GRAPH 10 171 3 3
+GRAPH 11 171 3 3
+Process 5 finished
+GRAPH 10 172 3 4
+GRAPH 11 172 3 3
+GRAPH 10 173 3 4
+GRAPH 11 173 3 3
+Process 6 finished
+GRAPH 11 174 3 4
+GRAPH 11 175 3 4
+Process 7 finished
+QEMU: Terminated
+[?2004hcherry@pop-os:~/E2_1/OSN/mini_projects/mini-project-2-Dileepadari/initial-xv6/src$ make qemu SCHEDULER=MLFQ GRAPH=GRAPH[C[C[Cexit[Kmake cleanqemu SCHEDULER=MLFQ GRAPH=GRAPH[C[C[Cexit[Kmake qemu SCHEDULER=MLFQ GRAPH=GRAPH[C[C[Cexit[Kmake qemu SCHEDULER=MLFQ GRAPH=GRAPH[C[C[Cexit[Kclear[C[C[C[1Pexitmake qemu SCHEDULER=MLFQ GRAPH=GRAPH[C[C[Cexit[K
+[?2004lexit
+
+Script done on 2023-10-09 21:21:23+05:30 [COMMAND_EXIT_CODE="0"]
